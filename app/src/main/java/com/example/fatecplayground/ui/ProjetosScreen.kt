@@ -22,7 +22,8 @@ fun ProjetosScreen(
     onAccountClick: (String) -> Unit = {},
 ) {
     Column {
-        Text(text = "Activity: " + currentActivity)
         Greeting("Projetos")
+        Text(text = "- Calculadora")
+        Text(text = "- Próximo")
     }
 }

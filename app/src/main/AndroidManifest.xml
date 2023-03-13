@@ -12,6 +12,11 @@
         android:theme="@style/Theme.FatecPlayground"
         tools:targetApi="31">
         <activity
+            android:name=".NavBar"
+            android:exported="false"
+            android:label="@string/title_activity_nav_bar"
+            android:theme="@style/Theme.FatecPlayground" />
+        <activity
             android:name=".HomeScreen"
             android:exported="false"
             android:label="@string/title_activity_home_screen"

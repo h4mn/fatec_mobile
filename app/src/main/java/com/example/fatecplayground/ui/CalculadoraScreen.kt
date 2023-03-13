@@ -22,7 +22,7 @@ fun CalculadoraScreen(
     onAccountClick: (String) -> Unit = {},
 ) {
     Column {
-        Text(text = "Activity: " + currentActivity)
         Greeting("Calculadora")
+        Text(text = "1 + 1 = 2")
     }
 }

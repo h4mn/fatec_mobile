@@ -22,7 +22,6 @@ fun HomeScreen(
     onAccountClick: (String) -> Unit = {},
 ) {
     Column {
-        Text(text = "Activity: " + currentActivity)
         Greeting("Home")
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.fatecplayground.ui.components.NavBar
 import com.example.fatecplayground.ui.theme.FatecPlaygroundTheme
 
 var currentActivity: String = ""
@@ -46,7 +47,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Scaffold (
         topBar = { myTopBar("Fatec Playground") },
         bottomBar = {
-            
+            NavBar(
+                telas = menuScreens,
+                aoSelecionar = { newScreen ->
+                    navController.navigate(newScreen.rota)
+                },
+                currentScreen = currentScreen
+            )
             //myBottomBar(lista = Atividades.listaDeAtividades)
         }
     ) { contentPadding ->
