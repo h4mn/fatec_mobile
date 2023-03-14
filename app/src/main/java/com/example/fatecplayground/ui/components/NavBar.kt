@@ -1,5 +1,6 @@
 package com.example.fatecplayground.ui.components
 
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearEasing
@@ -8,10 +9,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -23,11 +21,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.fatecplayground.Home
-import com.example.fatecplayground.ScreenDestination
-import com.example.fatecplayground.menuScreens
+import com.example.fatecplayground.*
 import com.example.fatecplayground.ui.components.ui.theme.FatecPlaygroundTheme
 import java.util.Locale
 
@@ -35,7 +34,7 @@ import java.util.Locale
 fun NavBar(
     telas: List<ScreenDestination>,
     aoSelecionar: (ScreenDestination) -> Unit,
-    currentScreen: ScreenDestination
+    atual: ScreenDestination
 ) {
     Surface (
         Modifier
@@ -47,8 +46,11 @@ fun NavBar(
                 NavBarItem(
                     texto = tela.rota,
                     icone = tela.icone,
-                    aoSelecionarItem = { aoSelecionar(tela) },
-                    selecionado = currentScreen == tela
+                    aoSelecionarItem = {
+                        Log.d("NavBar", "tela: ${atual.rota}")
+                        aoSelecionar(tela)
+                    },
+                    selecionado = (tela == atual),
                 )
             }
         }
@@ -60,7 +62,7 @@ fun NavBarItem(
     texto: String,
     icone: ImageVector,
     aoSelecionarItem: () -> Unit,
-    selecionado: Boolean
+    selecionado: Boolean,
 ) {
     val cor = MaterialTheme.colors.onSurface
     val tempoAnim = if
@@ -115,7 +117,7 @@ fun NavBarItem(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview2() {
+fun NavBarPreview() {
     var currentScreen: ScreenDestination by remember {
         mutableStateOf(Home)
     }
@@ -126,7 +128,7 @@ fun DefaultPreview2() {
             aoSelecionar = { novaTela ->
                 navController.navigate(novaTela.rota)
             },
-            currentScreen = currentScreen
+            atual = currentScreen
         )
     }
 }
