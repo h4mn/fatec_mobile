@@ -115,24 +115,6 @@ fun NavBarItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun NavBarPreview() {
-    var currentScreen: ScreenDestination by remember {
-        mutableStateOf(Home)
-    }
-    val navController: NavHostController = rememberNavController()
-    FatecPlaygroundTheme {
-        NavBar(
-            telas = menuScreens,
-            aoSelecionar = { novaTela ->
-                navController.navigate(novaTela.rota)
-            },
-            atual = currentScreen
-        )
-    }
-}
-
 private val TabHeight = 56.dp
 
 private const val InactiveTabOacity = 0.60f
