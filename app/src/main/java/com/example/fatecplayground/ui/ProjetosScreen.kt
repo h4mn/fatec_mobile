@@ -1,29 +1,24 @@
 package com.example.fatecplayground.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.fatecplayground.Greeting
-import com.example.fatecplayground.currentActivity
-import com.example.fatecplayground.ui.ui.theme.FatecPlaygroundTheme
 
 @Composable
-fun ProjetosScreen(
-    onClickSeeAllAccounts: () -> Unit = {},
-    onClickSeeAllBills: () -> Unit = {},
-    onAccountClick: (String) -> Unit = {},
-) {
-    Column {
-        Greeting("Projetos")
-        Text(text = "- Calculadora")
-        Text(text = "- Próximo")
-    }
+fun ProjetosScreen() {
+    //
+}
+
+
+
+data class Projeto(
+    val id: Int,
+    val titulo: String,
+    val concluido: Boolean
+)
+
+object Projetos {
+    val listaDeProjetos = listOf(
+        Projeto(1, "Fatec Playground", true),
+        Projeto(2, "Calculadora", true),
+        Projeto(3, "Sorteio de #0 a #10", false)
+    )
 }

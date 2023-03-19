@@ -20,28 +20,14 @@ fun PlaygroundNavHost (
         modifier = modifier
    ) {
         composable(route = Home.rota) {
-            Home.tela()
-            /*
-            HomeScreen(
-                onClickSeeAllAccounts = {
-                    navController.navigate(Projetos.rota)
-                },
-                onClickSeeAllBills = {
-                    navController.navigate(Projetos.rota)
-                },
-                onAccountClick = {variavel ->
-                    navController.navigate(variavel)
-                }
-            )
-            */
+            //Home.tela()
+            HomeScreen(navController = navController)
         }
         composable(route = Projetos.rota) {
             Projetos.tela()
-            //ProjetosScreen()
         }
         composable(route = Calculadora.rota) {
             Calculadora.tela()
-            //CalculadoraScreen()
         }
     }
 }
