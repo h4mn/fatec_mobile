@@ -19,7 +19,7 @@ Abaixo uma tabela com as versões do aplicativo. Cada linha representa uma alter
 | Versão | Data | Descrição |
 | :---: | :---: | :--- |
 | 1.00 | 2023-03-19 | Versão inicial do aplicativo. |
-| 1.01 | 2023-03-19 | Planejamento da interface da tela projetos. |
+| 1.01 | 2023-03-19 | Nova interface nas telas. |
 
 ### Capturas de Tela
 
@@ -28,7 +28,7 @@ Abaixo uma tabela com as capturas de tela do aplicativo. Cada coluna representa 
 | Versão | Inicial | Lista de Projetos | Calculadora |
 | :---: | :---: | :---: | :---: |
 | 1.00 | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_114658.png) | ![Tela de Projetos - Lista de Projetos](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Lista_20230319_114814.png) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_114830.png) |
-| 1.01 | ![Tela Inicial]() | ![Tela de Projetos - Lista de Projetos](https://img001.prntscr.com/file/img001/oR0-i3vnQLaRrzOwMgU9tw.jpg) | ![Tela da Calculadora]() |
+| 1.01 | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_121345.png) | ![Tela de Projetos - Lista de Projetos](https://img001.prntscr.com/file/img001/oR0-i3vnQLaRrzOwMgU9tw.jpg) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_121408.png) |
 
 ## Especificações
 
