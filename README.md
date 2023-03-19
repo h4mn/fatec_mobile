@@ -27,7 +27,7 @@ Abaixo uma tabela com as capturas de tela do aplicativo. Cada coluna representa 
 
 | Versão | Inicial | Lista de Projetos | Calculadora |
 | :---: | :---: | :---: | :---: |
-| 1.00 | ![Tela Inicial](https://img001.prntscr.com/file/img001/WZN3Y-ayRt2QDrvEQXxr1Q.jpg) | ![Tela de Projetos - Lista de Projetos](https://img001.prntscr.com/file/img001/VCwX9qkOQxit6up9K_PwLA.jpg) | ![Tela da Calculadora](https://img001.prntscr.com/file/img001/qkQcKP7ZR2CKgkXrzlrobQ.jpg) |
+| 1.00 | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_114658.png) | ![Tela de Projetos - Lista de Projetos](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Lista_20230319_114814.png) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_114830.png) |
 | 1.01 | ![Tela Inicial]() | ![Tela de Projetos - Lista de Projetos](https://img001.prntscr.com/file/img001/oR0-i3vnQLaRrzOwMgU9tw.jpg) | ![Tela da Calculadora]() |
 
 ## Especificações
