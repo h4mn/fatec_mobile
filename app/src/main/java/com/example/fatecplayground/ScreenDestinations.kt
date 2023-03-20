@@ -3,6 +3,7 @@ package com.example.fatecplayground
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -38,4 +39,16 @@ object Calculadora: ScreenDestination {
     }
 }
 
-val menuScreens = listOf(Home, Projetos, Calculadora)
+object About: ScreenDestination {
+    override val icone = Icons.Filled.Lock
+    override val rota = "About"
+    override val tela: @Composable () -> Unit = {
+        AboutScreen()
+    }
+}
+
+val menuScreens = listOf<ScreenDestination>(
+    Home,
+    Projetos,
+    Calculadora
+)
