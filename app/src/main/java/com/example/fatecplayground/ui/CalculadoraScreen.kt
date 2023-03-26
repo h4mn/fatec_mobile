@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTextApi::class)
+
 package com.example.fatecplayground.ui
 
 import androidx.compose.foundation.background
@@ -5,15 +7,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +26,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.fatecplayground.R
+import kotlin.random.Random
+
+@OptIn(ExperimentalTextApi::class)
+val provider = GoogleFont.Provider(
+  providerAuthority = "com.google.android.gms.fonts",
+  providerPackage = "com.google.android.gms",
+  certificates = R.array.com_google_android_gms_fonts_certs
+)
+
+val fontName = GoogleFont("Orbitron")
+
+@Suppress("DEPRECATION")
+val fontFamily = FontFamily(
+  Font(googleFont = fontName, fontProvider = provider)
+)
 
 @Composable
 @Preview
@@ -41,6 +62,17 @@ fun CalculadoraScreen(
     valor_1.value = 0
     valor_2.value = 0
     valor_resultado.value = 0
+  }
+  val aoClicar_Random: () -> Unit = {
+    val random = Random
+    if (valor_1.value > 0) {
+      "${valor_1.value}${random.nextInt(10)}"
+        .also { valor_1.value = it.toInt() }
+    } else {
+      valor_1.value = random.nextInt(10)
+    }
+    // Pesquisar como se pega o foco de um TextField
+    // para colocar o numero aleatorio no TextField com foco
   }
   // Design
   Column(
@@ -66,6 +98,8 @@ fun CalculadoraScreen(
       CalcButton("+", { aoClicar_Somar() })
       Spacer(modifier = Modifier.width(10.dp))
       CalcButton("CE", { aoClicar_Limpar() })
+      Spacer(modifier = Modifier.width(10.dp))
+      CalcButton("?", { aoClicar_Random() })
     }
   }
 }
@@ -104,7 +138,7 @@ fun CalcVisor(
     enabled = false,
     textStyle = TextStyle(
       fontSize = 50.sp,
-      fontFamily = FontFamily.Monospace,
+      fontFamily = fontFamily,
       textAlign = TextAlign.Right,
     ),
     modifier = Modifier
