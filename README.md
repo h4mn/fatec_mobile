@@ -22,7 +22,7 @@ Abaixo uma tabela com as versões do aplicativo. Cada linha representa uma alter
 | 1.01 | 2023-03-19 | Nova interface nas telas. |
 | 1.02 | 2023-03-19 | Melhoria no design. |
 | 1.03 | 2023-03-26 | Adicionado anotação OptIn com ExperimentalTextApi para baixar font Google em runtime e botão gerador de número aleatório. |
-| 1.04 | - | Correção quantidade de caracter dos TextFields |
+| 1.04 | - | Correção quantidade de caracter dos TextFields ([Relatório de testes](tests.md)) |
 | 1.05 | - | Adicionar activity Splash e Sobre |
 
 ### Capturas de Tela
