@@ -77,7 +77,7 @@ fun NavBarItem(
     }
     val corSelecionado by animateColorAsState(
         targetValue = if (selecionado) cor
-            else cor.copy(alpha = InactiveTabOacity),
+            else cor.copy(alpha = InactiveTabOpacity),
         animationSpec = tipoAnim
     )
     Row(
@@ -117,7 +117,7 @@ fun NavBarItem(
 
 private val TabHeight = 56.dp
 
-private const val InactiveTabOacity = 0.60f
+private const val InactiveTabOpacity = 0.60f
 private const val TabFadeInAnimationDelay = 100
 private const val TabFadeInAnimationDuration = 150
 private const val TabFadeOutAnimationDuration = 100

@@ -17,6 +17,7 @@ import com.example.fatecplayground.ui.components.NavBar
 
 var currentActivity: String = ""
 
+/*
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     }
   }
 }
+*/
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
