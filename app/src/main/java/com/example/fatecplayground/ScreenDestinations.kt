@@ -12,6 +12,14 @@ interface ScreenDestination {
     val tela: @Composable () -> Unit
 }
 
+object Main: ScreenDestination {
+    override val icone = Icons.Filled.Refresh
+    override val rota = "Main"
+    override val tela: @Composable () -> Unit = {
+        MainScreen()
+    }
+}
+
 object Home : ScreenDestination {
     override val icone = Icons.Filled.Home
     override val rota = "Home"
@@ -41,14 +49,6 @@ object About: ScreenDestination {
     override val rota = "About"
     override val tela: @Composable () -> Unit = {
         AboutScreen()
-    }
-}
-
-object Splash: ScreenDestination {
-    override val icone = Icons.Filled.Refresh
-    override val rota = "Splash"
-    override val tela: @Composable () -> Unit = {
-        SplashScreen()
     }
 }
 

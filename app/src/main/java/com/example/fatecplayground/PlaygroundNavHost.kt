@@ -5,10 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.fatecplayground.ui.CalculadoraScreen
-import com.example.fatecplayground.ui.HomeScreen
-import com.example.fatecplayground.ui.ProjetosScreen
-import com.example.fatecplayground.ui.AboutScreen
+import com.example.fatecplayground.ui.*
 
 
 @Composable
@@ -18,18 +15,25 @@ fun PlaygroundNavHost(
 ) {
   NavHost(
     navController = navController,
-    startDestination = Home.rota,
+    startDestination = "",
     modifier = modifier
   ) {
+    composable(route = Main.rota) {
+      MainScreen(navController = navController)
+    }
+    
     composable(route = Home.rota) {
       HomeScreen(navController = navController)
     }
+    
     composable(route = Projetos.rota) {
       ProjetosScreen(navController = navController)
     }
+    
     composable(route = Calculadora.rota) {
       CalculadoraScreen(navController = navController)
     }
+    
     composable(route = About.rota) {
       AboutScreen(navController = navController)
     }
