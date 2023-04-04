@@ -15,12 +15,9 @@ fun PlaygroundNavHost(
 ) {
   NavHost(
     navController = navController,
-    startDestination = "",
+    startDestination = Home.rota,
     modifier = modifier
   ) {
-    composable(route = Main.rota) {
-      MainScreen(navController = navController)
-    }
     
     composable(route = Home.rota) {
       HomeScreen(navController = navController)

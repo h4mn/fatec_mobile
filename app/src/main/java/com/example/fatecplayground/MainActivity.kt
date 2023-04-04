@@ -13,41 +13,43 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.fatecplayground.ui.CalcVisor
 import com.example.fatecplayground.ui.components.NavBar
-import com.example.fatecplayground.ui.theme.AnimatedSplashScreenTheme
-
-var currentActivity: String = ""
+import com.example.fatecplayground.ui.theme.FatecPlaygroundTheme
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     
     setContent {
-      val navController = rememberNavController()
-      Box(
-        modifier = Modifier
-          .fillMaxSize()
-          .background(MaterialTheme.colors.primary)
-      ) {
-    
-        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.logo))
-        val logoAnimationState = animateLottieCompositionAsState(composition = composition)
-        LottieAnimation(
-          composition = composition,
-          progress = { logoAnimationState.progress }
-        )
-        if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
-          navController.navigate(Main.rota)
+      FatecPlaygroundTheme {
+        var isVisible by remember { mutableStateOf(true) }
+        if (isVisible) {
+          Box(
+            modifier = Modifier
+              .fillMaxSize()
+              .background(MaterialTheme.colors.primary)
+          ) {
+            val composition by rememberLottieComposition(
+              LottieCompositionSpec.RawRes(R.raw.logo)
+            )
+            val logoAnimationState = animateLottieCompositionAsState(
+              composition = composition
+            )
+            LottieAnimation(
+              composition = composition,
+              progress = { logoAnimationState.progress }
+            )
+            if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
+              isVisible = false
+            }
+          }
+        } else {
+          MainScreen()
         }
       }
     }
@@ -55,15 +57,14 @@ class MainActivity : ComponentActivity() {
   }
 }
 
-
 @Composable
-fun MainScreen(navController: NavController = rememberNavController()) {
+fun MainScreen() {
   val navHostController = rememberNavController()
   val currentBackStack by navHostController.currentBackStackEntryAsState()
   val currentDestination = currentBackStack?.destination
   val currentScreen = menuScreens.find { it.rota == currentDestination?.route } ?: Home
   Surface(
-    modifier = Modifier.fillMaxSize(),
+    //modifier = Modifier.fillMaxSize(),
     color = MaterialTheme.colors.background
   ) {
     Scaffold(
