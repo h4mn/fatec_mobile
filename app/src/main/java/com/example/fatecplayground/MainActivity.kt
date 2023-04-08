@@ -1,6 +1,8 @@
 package com.example.fatecplayground
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,7 +14,10 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -29,6 +34,7 @@ class MainActivity : ComponentActivity() {
       FatecPlaygroundTheme {
         var isVisible by remember { mutableStateOf(true) }
         if (isVisible) {
+          SetAndroidStatusBar(false, MaterialTheme.colors.primary)
           Box(
             modifier = Modifier
               .fillMaxSize()
@@ -49,12 +55,21 @@ class MainActivity : ComponentActivity() {
             }
           }
         } else {
+          SetAndroidStatusBar(true,MaterialTheme.colors.primaryVariant)
           MainScreen()
         }
       }
     }
 
   }
+}
+
+@Composable
+fun SetAndroidStatusBar(visible: Boolean, cor: Color) {
+  val window: Window = (LocalContext.current as Activity).window
+  //val backgroundColor = MaterialTheme.colors.primary
+  WindowCompat.setDecorFitsSystemWindows(window, visible)
+  window.statusBarColor = cor.toArgb()
 }
 
 @Composable

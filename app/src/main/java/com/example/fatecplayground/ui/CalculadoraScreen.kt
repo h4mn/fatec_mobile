@@ -8,10 +8,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.text.ExperimentalTextApi
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.isDigitsOnly
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.fatecplayground.R
@@ -49,30 +52,56 @@ fun CalculadoraScreen(
   navController: NavController = rememberNavController()
 ) {
   // Lógica
+  
+  // Pesquisar como se pega o foco de um TextField
+  // para colocar o numero aleatorio no TextField com foco
+  // https://www.composables.co/tutorials/focus-text
+  val foco = remember { FocusRequester() }
+  var whoFocus = remember { mutableStateOf("") }
+  
   var valor_1 = remember { mutableStateOf(0) }
   var valor_2 = remember { mutableStateOf(0) }
   var valor_resultado = remember { mutableStateOf(0) }
+  
   val aoMudar_valor_1: (Int) -> Unit = { it -> valor_1.value = it }
   val aoMudar_valor_2: (Int) -> Unit = { it -> valor_2.value = it }
+
   val aoClicar_Somar: () -> Unit = {
     val resultado = valor_1.value + valor_2.value
     valor_resultado.value = resultado
   }
+
   val aoClicar_Limpar: () -> Unit = {
     valor_1.value = 0
     valor_2.value = 0
     valor_resultado.value = 0
   }
-  val aoClicar_Random: () -> Unit = {
+  
+  val aoClicar_Random_1: () -> Unit = {
     val random = Random
     if (valor_1.value > 0) {
       "${valor_1.value}${random.nextInt(10)}"
-        .also { valor_1.value = it.toInt() }
+        .also {
+          if (it.length <= 9) {
+            valor_1.value = it.toInt()
+          }
+        }
     } else {
       valor_1.value = random.nextInt(10)
     }
-    // Pesquisar como se pega o foco de um TextField
-    // para colocar o numero aleatorio no TextField com foco
+  }
+  val aoClicar_Random_2: () -> Unit = {
+    val random = Random
+    if (valor_2.value > 0) {
+      "${valor_2.value}${random.nextInt(10)}"
+        .also {
+          if (it.length <= 9) {
+            valor_2.value = it.toInt()
+          }
+        }
+    } else {
+      valor_2.value = random.nextInt(10)
+    }
   }
   // Design
   Column(
@@ -86,12 +115,14 @@ fun CalculadoraScreen(
       rotulo = "Valor 1",
       valor = valor_1.value.toString(),
       aoMudar = { aoMudar_valor_1(it) },
+      aoClicar = { aoClicar_Random_1() }
     )
     Spacer(modifier = Modifier.height(8.dp))
     CardEdit(
       rotulo = "Valor 2",
       valor = valor_2.value.toString(),
       aoMudar = { aoMudar_valor_2(it) },
+      aoClicar = { aoClicar_Random_2() }
     )
     Spacer(modifier = Modifier.height(8.dp))
     Row {
@@ -99,7 +130,6 @@ fun CalculadoraScreen(
       Spacer(modifier = Modifier.width(10.dp))
       CalcButton("CE", { aoClicar_Limpar() })
       Spacer(modifier = Modifier.width(10.dp))
-      CalcButton("?", { aoClicar_Random() })
     }
   }
 }
@@ -109,20 +139,40 @@ fun CardEdit(
   rotulo: String,
   valor: String,
   aoMudar: (Int) -> Unit,
+  aoClicar: () -> Unit
 ) {
-  OutlinedTextField(
-    value = valor,
-    onValueChange = { aoMudar(it.toInt()) },
-    label = { Text(text = rotulo) },
-    keyboardOptions = KeyboardOptions.Default.copy(
-      keyboardType = KeyboardType.Number
-    ),
-    textStyle = TextStyle(
-      fontSize = 30.sp,
-      fontFamily = FontFamily.Monospace,
-    ),
-    modifier = Modifier.fillMaxWidth()
-  )
+  Row {
+    OutlinedTextField(
+      value = valor,
+      onValueChange = {
+        if (it.length <= 9) {
+          val numericValue: Int? = it.toIntOrNull()
+          if (numericValue != null) {
+            aoMudar(numericValue)
+          } else {
+            aoMudar(0)
+          }
+        }
+      },
+      label = { Text(text = rotulo) },
+      keyboardOptions = KeyboardOptions.Default.copy(
+        keyboardType = KeyboardType.Number
+      ),
+      textStyle = TextStyle(
+        fontSize = 30.sp,
+        fontFamily = FontFamily.Monospace,
+      ),
+      modifier = Modifier
+        //.fillMaxWidth()
+        .wrapContentWidth(Alignment.Start)
+    )
+    CalcButton("?",
+      { aoClicar() },
+      Modifier
+        .wrapContentWidth(Alignment.End)
+        .padding(start = 16.dp, top = 14.dp)
+    )
+  }
 }
 
 @Composable
@@ -151,11 +201,13 @@ fun CalcVisor(
 @Composable
 fun CalcButton(
   text: String,
-  aoClicar: () -> Unit
+  aoClicar: () -> Unit,
+  modifier: Modifier = Modifier
 ) {
   Button(
     shape = RoundedCornerShape(10),
-    onClick = { aoClicar() }
+    onClick = { aoClicar() },
+    modifier = modifier
   ) {
     Text(
       text = text,
