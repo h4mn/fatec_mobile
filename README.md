@@ -40,7 +40,7 @@ Abaixo uma tabela com as capturas de tela do aplicativo. Cada coluna representa 
 | 1.02   | - | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_143028.png) | ![Tela de Projetos - Lista de Projetos](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Projetos_20230319_143051.png) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_143107.png) | - |
 | 1.03   | - | - | - | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230326_202300.png) | - |
 | 1.04   | ![Tela Splash](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Splash_20230407_114549.png) | - | - | ![Tela Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230407_231527.png) | ![Tela Sobre](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Sobre_20230407_114617.png) |
-| 1.05   | - | - | - | - | - | ![Tela ChatGPT](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230408_114617.png) |
+| 1.05   | - | - | - | - | - | ![Tela ChatGPT](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/ChatGPT_20230408_214532.png) |
 
 ## Especificações
 
