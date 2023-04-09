@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.fatecplayground.ui.*
+import com.example.fatecplayground.ui.ChatGPT
 
 
 @Composable
@@ -29,6 +30,10 @@ fun PlaygroundNavHost(
     
     composable(route = Calculadora.rota) {
       CalculadoraScreen(navController = navController)
+    }
+  
+    composable(route = com.example.fatecplayground.ChatGPT.rota) {
+      ChatGPT().Screen(navController = navController)
     }
     
     composable(route = About.rota) {

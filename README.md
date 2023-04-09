@@ -26,19 +26,21 @@ Abaixo uma tabela com as versões do aplicativo. Cada linha representa uma alter
 | 1.04.01 | 2023-04-07 | SetAdroidStatusBar - Correção da barra de status do Android |
 | 1.04.02 | 2023-04-07 | Correção quantidade de caracter dos TextFields ([Relatório de testes](tests.md)) |
 | 1.04.03 | 2023-04-07 | Adicionar verificação de foco para o botão gerador de aleatório |
-| 1.05 | - | Melhorar e adicionar AutoScrool no texto da tela Sobre |
+| 1.05 | 2023-04-08 | Adicionada funcionalidade do ChatGPT |
+| 1.06 | - | Melhorar e adicionar AutoScrool no texto da tela Sobre |
 
 ### Capturas de Tela
 
 Abaixo uma tabela com as capturas de tela do aplicativo. Cada coluna representa uma tela do aplicativo. Cada linha uma versão da tela atualizada.
 
-| Versão | Splash | Inicial | Lista de Projetos | Calculadora | Sobre |
+| Versão | Splash | Inicial | Lista de Projetos | Calculadora | Sobre | ChatGPT |
 | :---:  | :---: | :---: | :---: | :---: | :---: |
 | 1.00   | - | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_114658.png) | ![Tela de Projetos - Lista de Projetos](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Lista_20230319_114814.png) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_114830.png) | - |
 | 1.01   | - | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_121345.png) | ![Tela de Projetos - Lista de Projetos](https://img001.prntscr.com/file/img001/oR0-i3vnQLaRrzOwMgU9tw.jpg) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_121408.png) | - |
 | 1.02   | - | ![Tela Inicial](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Home_20230319_143028.png) | ![Tela de Projetos - Lista de Projetos](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Projetos_20230319_143051.png) | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230319_143107.png) | - |
 | 1.03   | - | - | - | ![Tela da Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230326_202300.png) | - |
 | 1.04   | ![Tela Splash](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Splash_20230407_114549.png) | - | - | ![Tela Calculadora](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230407_231527.png) | ![Tela Sobre](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Sobre_20230407_114617.png) |
+| 1.05   | - | - | - | - | - | ![Tela ChatGPT](https://raw.githubusercontent.com/h4mn/fatec_mobile/from_home/screenshots/Calculadora_20230408_114617.png) |
 
 ## Especificações
 

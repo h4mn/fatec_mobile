@@ -45,9 +45,18 @@ object About: ScreenDestination {
     }
 }
 
+object ChatGPT: ScreenDestination {
+    override val icone = Icons.Filled.Face
+    override val rota = "ChatGPT"
+    override val tela: @Composable () -> Unit = {
+        com.example.fatecplayground.ui.ChatGPT().Screen()
+    }
+}
+
 val menuScreens = listOf<ScreenDestination>(
     Home,
     Projetos,
     Calculadora,
+    ChatGPT,
     About
 )
