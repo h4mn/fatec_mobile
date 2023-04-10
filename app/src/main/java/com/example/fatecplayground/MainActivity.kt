@@ -1,8 +1,13 @@
 package com.example.fatecplayground
 
+import android.Manifest
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Window
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -17,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.airbnb.lottie.compose.LottieAnimation
@@ -25,6 +32,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.fatecplayground.ui.components.NavBar
 import com.example.fatecplayground.ui.theme.FatecPlaygroundTheme
+
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,11 +64,47 @@ class MainActivity : ComponentActivity() {
           }
         } else {
           SetAndroidStatusBar(true,MaterialTheme.colors.primaryVariant)
+          if (ContextCompat.checkSelfPermission(
+              this, Manifest.permission.INTERNET
+            ) != PackageManager.PERMISSION_GRANTED
+          ) {
+            ActivityCompat.requestPermissions(
+              this,
+              arrayOf(Manifest.permission.INTERNET),
+              1
+            )
+          }
           MainScreen()
         }
       }
     }
-
+  }
+  
+  override fun onRequestPermissionsResult(
+    requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    when (requestCode) {
+      1 -> {
+        if ((grantResults.isNotEmpty()
+                  && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        ) {
+        
+        } else {
+          val toast = Toast.makeText(
+            applicationContext,
+            "Não será possível utilizar o ChatGPT!",
+            Toast.LENGTH_SHORT
+          )
+          toast.show()
+          Handler(Looper.getMainLooper()).postDelayed(
+            {
+              toast.cancel()
+            }, 3000
+          )
+        }
+      }
+    }
+    return
   }
 }
 
