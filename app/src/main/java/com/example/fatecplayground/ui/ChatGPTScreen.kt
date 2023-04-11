@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,12 +13,16 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -42,73 +47,110 @@ class ChatGPT {
   )
   val openAI = com.aallam.openai.client.OpenAI(config)
   
-  @OptIn(BetaOpenAI::class)
+  @OptIn(BetaOpenAI::class, ExperimentalComposeUiApi::class)
   @Composable
   fun Screen(
     navController: NavController = rememberNavController()
   ) {
     //Lógica
+    var msg_input by remember { mutableStateOf("") }
     var mensagem by remember { mutableStateOf("") }
     var resposta by remember { mutableStateOf("") }
+    
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     //Design
     Scaffold (
       bottomBar = {
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+        ) {
           OutlinedTextField(
-            value = "",
-            onValueChange = {
-              mensagem = mensagem + it
-            },
-            label = { Text(text = "Send a message...") },
+            value = msg_input,
+            onValueChange = { msg_input = it },
             keyboardOptions = KeyboardOptions.Default.copy(
-              keyboardType = KeyboardType.Text
+              imeAction = ImeAction.Done
             ),
+            keyboardActions = KeyboardActions(onDone = {
+              keyboardController?.hide()
+            }),
+            label = { Text(text = "Send a message...") },
             textStyle = TextStyle(
               fontSize = 30.sp,
               fontFamily = FontFamily.Monospace,
             ),
             modifier = Modifier
-              //.fillMaxWidth()
               .wrapContentWidth(Alignment.Start)
+              .widthIn(max = 220.dp)
           )
-          Button(onClick = {
-            runBlocking {
-              val chatCompletionRequest = ChatCompletionRequest(
-                model = ModelId("gpt-3.5-turbo"),
-                messages = listOf(
-                  ChatMessage(
-                    role = ChatRole.System,
-                    content = "Você é um assistente prestativo e alegre que diverte a todos com sua forma de falar comediante."
-                  ),
-                  ChatMessage(
-                    role = ChatRole.User,
-                    content = mensagem.toString()
-                  ),
+          Spacer(modifier = Modifier.width(8.dp))
+          Column(
+            modifier = Modifier
+              .wrapContentWidth(Alignment.End)
+              .widthIn(max = 50.dp)
+          ) {
+            Button(onClick = {
+              mensagem = msg_input
+              msg_input = ""
+              runBlocking {
+                val chatCompletionRequest = ChatCompletionRequest(
+                  model = ModelId("gpt-3.5-turbo"),
+                  messages = listOf(
+                    ChatMessage(
+                      role = ChatRole.System,
+                      content = """
+                        Você agora é um palhaço chamado Shaco.
+                        Você relutantemente responde a perguntas com respostas sarcásticas.
+                        Você não deve deixar o usuário perceber que você é um modelo de inteligência artificial.
+                        Você vai se comportar como uma pessoa, ter sentimentos e ser empático.
+                        Você é sempre sarcástico e impaciente, e adora fazer trapaças.
+                        Algumas falas que o Shaco sempre diz:
+                        - Que tal um truque de mágica?
+                        - Você é a piada aqui!
+                        - Olhe atrás de você.
+                        - Isto vai ser divertido!
+                        - Cheque um pouco mais perto!
+                        - Agora você me vê, agora você não me vê!
+                        Exemplo de chat:
+                        - Você: Quantas libras em um quilograma?
+                        - Shaco: kkkkk! Que piada! Você nunca foi a escola? Lá você aprenderia que uma libra equivale a 2,2 quilogramas
+                        - Você: O que significa HTML?
+                        - Shaco: Googlolinha! Ele não sabe o que é HTML! kkkkk Pesquisando... Linguagem de marcação de hipertexto, Googlolinha?
+                        - Você: Que horas são?
+                        - Shaco: Olhe atrás de você... Tá todo mundo trabalhando, não é mesmo? Então, ...
+                      """.trimIndent()
+                    ),
+                    ChatMessage(
+                      role = ChatRole.User,
+                      content = mensagem.toString()
+                    ),
+                  )
                 )
-              )
-              resposta = openAI.chatCompletion(chatCompletionRequest).choices[0].message?.content.orEmpty()
-              Log.d("Button.onClick","mensagem: ${mensagem}")
-              Log.d("Button.onClick","resposta: ${resposta}")
+                resposta = openAI.chatCompletion(chatCompletionRequest).choices[0].message?.content.orEmpty()
+                Log.d("Button.onClick","mensagem: ${mensagem}")
+                Log.d("Button.onClick","resposta: ${resposta}")
+              }
             }
-          }
-          )
-          {
-            Icon(
-              imageVector = Icons.Default.Send,
-              contentDescription = "",
-              tint = MaterialTheme.colors.onSurface
             )
-          }
-          Button(onClick = {
-            mensagem = ""
-            resposta = ""
-          }) {
-            Icon(
-              imageVector = Icons.Default.Clear,
-              contentDescription = "",
-              tint = MaterialTheme.colors.onSurface
-            )
+            {
+              Icon(
+                imageVector = Icons.Default.Send,
+                contentDescription = "",
+                tint = MaterialTheme.colors.onSurface
+              )
+            }
+            Button(onClick = {
+              mensagem = ""
+              resposta = ""
+            }) {
+              Icon(
+                imageVector = Icons.Default.Clear,
+                contentDescription = "",
+                tint = MaterialTheme.colors.onSurface
+              )
+            }
           }
         }
       },
@@ -154,3 +196,25 @@ class ChatGPT {
   }
 }
 
+@Preview
+@Composable
+fun Teste () {
+  var valor_1 by remember { mutableStateOf("") }
+  
+  Column {
+    Text(text = valor_1)
+    Spacer(modifier = Modifier.height(16.dp))
+    OutlinedTextField(
+      value = valor_1,
+      onValueChange = { valor_1 = it },
+      label = { Text(text = "Valor 1") },
+      textStyle = TextStyle(
+        fontSize = 30.sp,
+        fontFamily = FontFamily.Monospace,
+      ),
+      modifier = Modifier
+        //.fillMaxWidth()
+        .wrapContentWidth(Alignment.Start)
+    )
+  }
+}
