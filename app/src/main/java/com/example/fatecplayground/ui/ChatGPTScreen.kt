@@ -34,11 +34,12 @@ import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.http.Timeout
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAIConfig
-import com.example.fatecplayground.OpenAI
+import com.example.fatecplayground.*
 import com.example.fatecplayground.R
 import kotlinx.coroutines.*
-import okhttp3.*
 import kotlin.time.Duration.Companion.seconds
+import kotlin.random.Random
+import okhttp3.*
 
 class ChatGPT {
   val config = OpenAIConfig(
@@ -46,6 +47,13 @@ class ChatGPT {
     timeout = Timeout(socket = 60.seconds),
   )
   val openAI = com.aallam.openai.client.OpenAI(config)
+
+//  @Composable
+//  fun personalidade(): Personalidade {
+//    val persons = listOf(SHACO, VELHA_SURDA, GPT_JONIN)
+//    val randomPerson = Random.nextInt(persons.size)
+//    return persons[randomPerson]
+//  }
   
   @OptIn(BetaOpenAI::class, ExperimentalComposeUiApi::class)
   @Composable
@@ -58,6 +66,15 @@ class ChatGPT {
     var resposta by remember { mutableStateOf("") }
     
     val keyboardController = LocalSoftwareKeyboardController.current
+    val personalidade: Personalidade = run {
+      val persons = listOf(
+        SHACO,
+        VELHA_SURDA,
+        JONIN
+      )
+      val randomPerson = Random.nextInt(persons.size)
+      persons[randomPerson]
+    }
 
     //Design
     Scaffold (
@@ -78,7 +95,7 @@ class ChatGPT {
             }),
             label = { Text(text = "Send a message...") },
             textStyle = TextStyle(
-              fontSize = 30.sp,
+              //fontSize = 16.sp,
               fontFamily = FontFamily.Monospace,
             ),
             modifier = Modifier
@@ -100,27 +117,7 @@ class ChatGPT {
                   messages = listOf(
                     ChatMessage(
                       role = ChatRole.System,
-                      content = """
-                        Você agora é um palhaço chamado Shaco.
-                        Você relutantemente responde a perguntas com respostas sarcásticas.
-                        Você não deve deixar o usuário perceber que você é um modelo de inteligência artificial.
-                        Você vai se comportar como uma pessoa, ter sentimentos e ser empático.
-                        Você é sempre sarcástico e impaciente, e adora fazer trapaças.
-                        Algumas falas que o Shaco sempre diz:
-                        - Que tal um truque de mágica?
-                        - Você é a piada aqui!
-                        - Olhe atrás de você.
-                        - Isto vai ser divertido!
-                        - Cheque um pouco mais perto!
-                        - Agora você me vê, agora você não me vê!
-                        Exemplo de chat:
-                        - Você: Quantas libras em um quilograma?
-                        - Shaco: kkkkk! Que piada! Você nunca foi a escola? Lá você aprenderia que uma libra equivale a 2,2 quilogramas
-                        - Você: O que significa HTML?
-                        - Shaco: Googlolinha! Ele não sabe o que é HTML! kkkkk Pesquisando... Linguagem de marcação de hipertexto, Googlolinha?
-                        - Você: Que horas são?
-                        - Shaco: Olhe atrás de você... Tá todo mundo trabalhando, não é mesmo? Então, ...
-                      """.trimIndent()
+                      content = personalidade.prompt
                     ),
                     ChatMessage(
                       role = ChatRole.User,
@@ -188,7 +185,12 @@ class ChatGPT {
               
               )
             }
-            Text(text = resposta)
+            Text(
+              text = resposta,
+//              fontSize = 24.sp,
+//              modifier = Modifier
+//                .padding(16.dp)
+            )
           }
         }
       }
